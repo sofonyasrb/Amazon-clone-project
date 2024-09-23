@@ -2,10 +2,7 @@ import React, { useState, useContext } from "react";
 import classes from "./SignUp.module.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { auth } from "../../Utility/firebase";
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
+import { signInWithEmailAndPassword,createUserWithEmailAndPassword,} from "firebase/auth";
 import { ClipLoader } from "react-spinners";
 import { DataContext } from "../../Components/DataProvider/DataProvider";
 import { Type } from "../../Utility/action.type";
@@ -14,15 +11,11 @@ function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState({
-    signIn: false,
-    signUP: false,
-  });
-
+  const [loading, setLoading] = useState({ signIn: false, signUP: false,});
   const [{ user }, dispatch] = useContext(DataContext);
   const navigate = useNavigate();
   const navStateData = useLocation();
-  console.log(navStateData);
+  //console.log(navStateData);
 
   // console.log(user);
 
@@ -67,12 +60,8 @@ function Auth() {
 
   return (
     <section className={classes.login}>
-      {/* logo */}
       <Link to={"/"}>
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
-          alt=""
-        />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png" alt="" />
       </Link>
 
       {/* form */}
@@ -125,7 +114,7 @@ function Auth() {
 
         {/* agreement */}
         <p>
-          By signing-in you agree to the AMAZON FAKE CLONE Conditions of Use &
+          By signing-in you agree to the <b>AMAZON FAKE CLONE </b>Conditions of Use &
           Sale. Please see our Privacy Notice, our Cookies Notice and our
           Interest-Based Ads Notice.
         </p>
@@ -140,7 +129,7 @@ function Auth() {
           {loading.signUP ? (
             <ClipLoader color="#000" size={15}></ClipLoader>
           ) : (
-            "Create your Amazon Account"
+           <b> "Create your Amazon Account"</b> 
           )}
         </button>
         {error && (
