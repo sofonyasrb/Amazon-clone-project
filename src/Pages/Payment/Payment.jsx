@@ -1,4 +1,3 @@
-
 import React, { useContext, useState } from "react";
 import classes from "./Payment.module.css";
 import LayOut from "../../Components/LayOut/LayOut";
@@ -44,7 +43,7 @@ function Payment() {
       // 1. backend || functions ---> contact to the client secret
       const response = await axiosInstance({
         method: "POST",
-        url: `/payment/create?total=${total * 100}`,
+        url: `/payment/create?total=${total*100}`,
       });
 
       // console.log(response.data);
@@ -60,12 +59,7 @@ function Payment() {
       // console.log(paymentIntent);
 
       // 3. after the confirmation --> order firestore database save, clear basket
-      await db
-        .collection("users")
-        .doc(user.uid)
-        .collection("orders")
-        .doc(paymentIntent.id)
-        .set({
+      await db.collection("users").doc(user.uid).collection("orders").doc(paymentIntent.id).set({
           basket: basket,
           amount: paymentIntent.amount,
           created: paymentIntent.created,
@@ -94,8 +88,8 @@ function Payment() {
           <h3>Delivery Address</h3>
           <div>
             <div>{user?.email}</div>
-            <div>123 React Lane</div>
-            <div>Chicago, IL</div>
+            <div>998 S Havana st</div>
+            <div>Denver, CO</div>
           </div>
         </div>
         <hr />

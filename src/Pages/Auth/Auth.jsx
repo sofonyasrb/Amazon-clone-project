@@ -3,7 +3,7 @@ import classes from "./SignUp.module.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { auth } from "../../Utility/firebase";
 import { signInWithEmailAndPassword,createUserWithEmailAndPassword,} from "firebase/auth";
-import { ClipLoader } from "react-spinners";
+import { ClockLoader  } from "react-spinners";
 import { DataContext } from "../../Components/DataProvider/DataProvider";
 import { Type } from "../../Utility/action.type";
 
@@ -21,18 +21,16 @@ function Auth() {
 
   const authHandler = async (e) => {
     e.preventDefault();
-    console.log(e.target.name);
     if (e.target.name == "signin") {
       // firebase auth
-      setLoading({ ...loading, signIn: true });
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userInfo) => {
+      setLoading({ ...loading,signIn:true });
+      signInWithEmailAndPassword(auth,email,password).then((userInfo) => {
           dispatch({
             type: Type.SET_USER,
             user: userInfo.user,
           });
           setLoading({ ...loading, signIn: false });
-          navigate(navStateData?.state?.redirect || "/");
+          navigate(navStateData?.state?.redirect || "/",{replace:true});
         })
         .catch((err) => {
           setError(err.message);
@@ -40,8 +38,7 @@ function Auth() {
         });
     } else {
       setLoading({ ...loading, signUP: true });
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userInfo) => {
+      createUserWithEmailAndPassword(auth, email, password).then((userInfo) => {
           dispatch({
             type: Type.SET_USER,
             user: userInfo.user,
@@ -105,7 +102,7 @@ function Auth() {
             className={classes.login__signInButton}
           >
             {loading.signIn ? (
-              <ClipLoader color="#000" size={15}></ClipLoader>
+              <ClockLoader color="#000" size={15}></ClockLoader>
             ) : (
               " Sign In"
             )}
@@ -127,14 +124,12 @@ function Auth() {
           className={classes.login__registerButton}
         >
           {loading.signUP ? (
-            <ClipLoader color="#000" size={15}></ClipLoader>
+            <ClockLoader color="#000" size={15}></ClockLoader>
           ) : (
-           <b> "Create your Amazon Account"</b> 
+            <b> "Create your Amazon Account"</b> 
           )}
         </button>
-        {error && (
-          <small style={{ paddingTop: "5px", color: "red" }}>{error}</small>
-        )}
+        {error && ( <small style={{ paddingTop: "5px", color: "red" }}>{error}</small> )}
       </div>
     </section>
   );

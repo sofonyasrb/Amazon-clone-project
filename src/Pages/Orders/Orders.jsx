@@ -11,14 +11,8 @@ function Orders() {
 
   useEffect(() => {
     if (user) {
-      db.collection("users")
-        .doc(user.uid)
-        .collection("orders")
-        .orderBy("created", "desc")
-        .onSnapshot((snapshot) => {
-          console.log(snapshot);
-          setOrders(
-            snapshot.docs.map((doc) => ({
+      db.collection("users").doc(user?.uid).collection("orders").orderBy("created","desc").onSnapshot((snapshot) => {
+          setOrders( snapshot.docs.map((doc) => ({
               id: doc.id,
               data: doc.data(),
             }))
@@ -34,18 +28,18 @@ function Orders() {
       <section className={classes.container}>
         <div className={classes.orders__container}>
           <h2>Your Orders</h2>
-          {orders?.length == 0 && (
-            <div style={{ padding: "20px" }}>you don't have orders yet.</div>
+          {orders?.length ===0 && (
+            <div style={{ padding: "20px" }}>No orders yet.</div>
           )}
           {/* ordered items */}
           <div>
-            {orders?.map((eachOrder, i) => {
+            {orders?.map((eachOrder,i) => {
               return (
                 <div key={i}>
                   <hr />
                   <p>Order ID: {eachOrder?.id}</p>
                   {eachOrder?.data?.basket?.map((order) => (
-                    <ProductCard flex={true} product={order} key={order.id} />
+                    <ProductCard flex={true} product={order} key={order.id} renderAdd={true} />
                   ))}
                 </div>
               );

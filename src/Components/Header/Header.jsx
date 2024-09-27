@@ -61,14 +61,14 @@ const Header = () => {
               <div>
                 {user ? (
                   <>
-                    <p>Hello {user?.email?.split("@")[0]}</p>
+                    <p>Dear {user?.email?.split("@")[0]}</p>
                     <span onClick={() => (user ? auth.signOut() : null)}>
                       Sign Out
                     </span>
                   </>
                 ) : (
                   <>
-                    <p>Hello, Sign In</p>
+                    <p>Dear, Sign In</p>
                     <span>Account & Lists</span>
                   </>
                 )}

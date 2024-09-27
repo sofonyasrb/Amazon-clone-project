@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  redirect,
-} from "react-router-dom";
+import {BrowserRouter as Router,Routes, Route,redirect,} from "react-router-dom";
 import Landing from "./Pages/Landing/Landing";
 import Auth from "./Pages/Auth/Auth";
 import Payment from "./Pages/Payment/Payment";
@@ -17,7 +12,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 
 const stripePromise = loadStripe (
-  "pk_test_51OU6YoIrgvX7vjwlwFwZFFmBbuXRo77ewG49UZBndLITKEtINgOsTCmKbx4dvva5opJQYlTggPJ3SuK3HpprL1Pj006REMjwGf"
+  "pk_test_51Q2CzwBCViYGMhegl9tqyPQttgZqXTD3J5bIWcve1NPf5TdlqDs1av4ys2NypRbq2XV5WFkGluqgwdJznGRTNQ1O00jeslTOsx"
 );
 function Routing() {
   return (
@@ -25,30 +20,21 @@ function Routing() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/auth" element={<Auth />} />
-        <Route
-          path="/payments"
-          element={
-            <ProtectedRoute
-              msg={"you must log in to pay"}
-              redirect={"/payments"}
-            >
+
+        <Route path="/payments" element= {
+            <ProtectedRoute msg ={"You must log in to pay"} redirect= {"/payments"}>
               <Elements stripe={stripePromise}>
                 <Payment />
               </Elements>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/orders"
-          element={
-            <ProtectedRoute
-              msg={"you must log in to access your orders"}
-              redirect={"/orders"}
-            >
+          </ProtectedRoute>} />
+        
+        <Route path="/orders" element= {
+          <ProtectedRoute msg={"You must log in to access your orders"} redirect={"/orders"}>
+            <Elements stripe={stripePromise}>
               <Orders />
-            </ProtectedRoute>
-          }
-        />
+            </Elements >
+          </ProtectedRoute>} />
+        
         <Route path="/category/:categoryName" element={<Results />} />
         <Route path="/products/:productId" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />

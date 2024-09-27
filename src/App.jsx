@@ -17,7 +17,10 @@ function App() {
           user: authUser,
         });
       } else {
-        dispatch({ type: Type.SET_USER, user: null });
+        dispatch({
+          type: Type.SET_USER,
+          user: null
+        });
       }
     });
   }, []);
